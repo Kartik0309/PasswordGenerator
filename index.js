@@ -17,6 +17,7 @@ const rndString='~!%@#${}=][<>&';
 let password="";
 let passwordLength=10;
 handleSlider();
+setIndicator('#ccc');
 
 function handleSlider()
 {
@@ -78,17 +79,20 @@ function calculateStrength(){
  async function passwordCopy(){
 
     try {
-        passDisplay.select();
-        passDisplay.setSelectionRange(0, 99999); // For mobile devices
-        // Copy the text inside the text field
         await navigator.clipboard.writeText(passDisplay.value);
-        dataCopyMessage.textContent="Copied!!"; 
-    } catch (error) {
-        console.log("Error has occured: "+error);  
+        dataCopyMessage.innerText = "copied";
     }
-    
+    catch(e) {
+        dataCopyMessage.innerText = "Failed";
+    }
+    //to make copy wala span visible
+    dataCopyMessage.classList.add("active");
 
+    setTimeout( () => {
+        dataCopyMessage.classList.remove("active");
+    },2000);
 }
+
 
 slidervalue.addEventListener('input',(e)=>{
     passwordLength=e.target.value;
@@ -163,7 +167,7 @@ btnGen.addEventListener('click',()=>{
             k++;
             cnt++;
         }
-        else if(hasnum)
+        if(hasnum)
         {
             newpassword=newpassword+generateRandomNumber();
             k++;
@@ -180,32 +184,36 @@ btnGen.addEventListener('click',()=>{
             passwordLength=cnt;
             handleSlider();
         }
-        while(k<passwordLength)
+        else
         {
-            let idx=generateRandomInteger(0,arr.length);
-            if(arr[idx]==="hasup")
+            while(k<passwordLength)
             {
-                newpassword=newpassword+generateUpper();
-                k++;
-            }
-            else if(arr[idx]==="haslow")
-            {
-                newpassword=newpassword+generateLower();
-                k++;
-            }
-            else if(arr[idx]==="hasnum")
-            {
-                newpassword=newpassword+generateRandomNumber();
-                k++;
-            }
-            else if(arr[idx]==="hassym")
-            {
-                newpassword=newpassword+generateSymbol();
-                k++;
+                let idx=generateRandomInteger(0,arr.length);
+                if(arr[idx]==="hasup")
+                {
+                    newpassword=newpassword+generateUpper();
+                    k++;
+                }
+                else if(arr[idx]==="haslow")
+                {
+                    newpassword=newpassword+generateLower();
+                    k++;
+                }
+                else if(arr[idx]==="hasnum")
+                {
+                    newpassword=newpassword+generateRandomNumber();
+                    k++;
+                }
+                else if(arr[idx]==="hassym")
+                {
+                    newpassword=newpassword+generateSymbol();
+                    k++;
+                }
             }
         }
         let shuffled_pass=shuffle(newpassword);
         passDisplay.value=shuffled_pass;
+        calculateStrength();
     }
     else
     {

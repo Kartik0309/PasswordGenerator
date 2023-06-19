@@ -5,15 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Generator</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <h1>Password Generator</h1>
         <div class="display-container">
             <input readonly placeholder="Password" class="display" data-passwordDisplay>
-            <button passwordCopy>
-                <span data-copyMsg></span>
-                <i class="fa-solid fa-copy" copybutton></i>
+            <button class="copyBtn" passwordCopy>
+                <span class="tooltip" data-copyMsg></span>
+                <img src="./assets/copy.svg" alt="copy" width="23" height="23">
             </button>
         </div>
 
@@ -27,33 +28,33 @@
             <input type="range" min="1" max="20" step="1" class="slider" data-lengthSlider>
 
             <!-- CheckBox -->
-            <div>
+            <div class="check">
                 <input type="checkbox" id="uppercase">
                 <label for="uppercase">Includes Uppercase Letters</label>
             </div>
-            <div>
+            <div class="check">
                 <input type="checkbox" id="lowercase">
                 <label for="lowercase">Includes Lowercase Letters</label>
             </div>
-            <div>
+            <div class="check">
                 <input type="checkbox" id="numbers">
                 <label for="numbers">Includes Numbers</label>
             </div>
-            <div>
+            <div class="check">
                 <input type="checkbox" id="symbols">
                 <label for="symbols">Includes Symbols</label>
             </div>
 
 
             <!-- Strength -->
-            <div>
+            <div class="strength-container">
                 <p>Strength</p>
-                <i class="fa-regular fa-circle" strengthFig></i>
+                <div class="indicator" strengthFig></div>
             </div>
 
 
             <!-- Button -->
-            <button btnGenerate>GENERATE PASSWORD</button>
+            <button class="generateButton" btnGenerate>GENERATE PASSWORD</button>
 
         </div>
     </div>
